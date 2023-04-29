@@ -7,9 +7,10 @@
 
 
     // Set the INSERT SQL data
-    $user=new User(null,"","","","","","");
+    $user=new User(null,"","","","","","","");
     $res=$user->__selectionbyid($conn,$employeeId);
     $row=$res->fetch();
+   
   
 
  

@@ -9,8 +9,38 @@
 </head>
 <body>
     <ul>
-        <li><a href="../HTML project/accueil.html">Home</a></li>
-        <li><a href="../HTML project/Reservation.html">Create New Reservation</a></li>
+		<?php 
+	session_start();
+
+	if(isset($_SESSION['role']) && $_SESSION['role'] == 2){
+		// user is logged in with a role of 2
+		$user_email = $_SESSION['email']; 
+	
+	} else {
+		// user is not logged in or does not have the required role
+		header("location:login/signin.php");
+	
+
+	}
+	
+	require 'connection.php';
+	include 'User.php';
+	 // Set the INSERT SQL data
+	 $user=new User(null,"","","","","","","");
+	 $res=$user->__selectionbyemailClient($conn,$user_email);
+	 
+	 if ($res !== false && $res->rowCount() > 0) {
+		 $row=$res->fetch();
+		 //var_dump($row); 
+	 } 
+
+
+   
+		?>
+		<a href="login\logout.php">Logout</a>
+
+        <li><a href="../gestionHotel-php/home.php">Home</a></li>
+        <li><a href="../gestionHotel-php/ClientSide/chambre.php">Create New Reservation</a></li>
         <li><a href="../HTML project/contact.html">Contact</a></li>
         <li><a href="../HTML project/about.html" id="id1">About</a></li>
         <li><img src="test2.jpg" alt="" id="id1"></li>

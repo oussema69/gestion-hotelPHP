@@ -10,7 +10,7 @@ if(isset($_POST['save'])){
     $user->email=$_POST['email'];
     $user->password=$_POST['password'];
     $user->telephone=$_POST['telephone'];
-    $id=$_POST["id"];;
+    $id=$_POST["id"];
     $user->update($conn,$id);
     header("Location: ../dashboard.php");
 

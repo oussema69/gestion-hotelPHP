@@ -20,6 +20,8 @@ if(isset($_POST['email']) && isset($_POST['password'])){
    }
    elseif($row['role']==2){
     session_start();
+    $_SESSION['role'] = $row['role']; 
+    $_SESSION['email'] = $email;
     header("location:../home.php");
     }
     } else {

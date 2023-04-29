@@ -71,14 +71,12 @@
                   <input type="text" name="tel"id="form3Example4" class="form-control" />
                   <label class="form-label" for="form3Example4">Téléphone</label>
                 </div>
-  
-                <!-- Checkbox -->
-                <div class="form-check d-flex justify-content-center mb-4">
-                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-                  <label class="form-check-label" for="form2Example33">
-                    Subscribe to our newsletter
-                  </label>
+                <div class="form-outline mb-4">
+                  <input type="file"  name="image"id="image" class="form-control" />
+                  <label class="form-label" for="image" accept="images/*" >image</label>
                 </div>
+  
+         
   
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary btn-block mb-4" name="add">
@@ -145,6 +143,8 @@ if(isset($_POST['add'])){
   $user->password=$_POST['password'];
   $user->telephone=$_POST['tel'];
   $user->role=2;
+  $user->image=$_FILES['image']['name'];
+  move_uploaded_file($_FILES['image']['tmp_name'], "../images/".$user->image);
   $user->insert($conn);
 }
 

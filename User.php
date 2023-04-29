@@ -8,8 +8,10 @@ class User {
     public $password;
     public $telephone;
     public $role;
+    public $image;
 
-    public function __construct($id = null, $nom = null, $prenom = null, $email = null, $password = null, $telephone = null, $role = null) {
+
+    public function __construct($id = null, $nom = null, $prenom = null, $email = null, $password = null, $telephone = null, $role = null,$image=null) {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -17,6 +19,8 @@ class User {
         $this->password = $password;
         $this->telephone = $telephone;
         $this->role = $role;
+        $this->role = $image;
+
     }
 
     
@@ -47,6 +51,9 @@ class User {
     public function getRole() {
         return $this->role;
     }
+    public function getIole() {
+        return $this->image;
+    }
 
     public function __selection($conn){
         $sql = $conn->prepare("SELECT * FROM user where role=1");
@@ -66,9 +73,9 @@ class User {
 
     
     public function insert($conn) {
-        $st = $conn->prepare("INSERT INTO user (nom, prenom, email, password, telephone,role) VALUES (?, ?, ?, ?, ?,?)");
+        $st = $conn->prepare("INSERT INTO user (nom, prenom, email, password, telephone,role,image) VALUES (?, ?, ?, ?, ?,?,?)");
         
-        $st->execute(array($this->nom, $this->prenom, $this->email, $this->password, $this->telephone,$this->role));
+        $st->execute(array($this->nom, $this->prenom, $this->email, $this->password, $this->telephone,$this->role,$this->image));
     }
 
     public function __selectionbyid($conn,$id){
@@ -85,6 +92,13 @@ class User {
         return $sql;
 
     }
+    public function __selectionbyemailClient($conn, $email){
+        $sql = $conn->prepare("SELECT * FROM user WHERE email = :email");
+        $sql->bindParam(':email', $email);
+        $sql->execute();
+        return $sql;
+    }
+    
 
 
 
