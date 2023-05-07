@@ -8,7 +8,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     
   
     
-    $sql = "SELECT role FROM user WHERE email = :email and password = :password";
+    $sql = "SELECT id,role FROM user WHERE email = :email and password = :password";
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(':email' => $email, ':password' => $pswd));
     
@@ -22,6 +22,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     session_start();
     $_SESSION['role'] = $row['role']; 
     $_SESSION['email'] = $email;
+    $_SESSION['id']=$row['id']; 
     header("location:../home.php");
     }
     } else {

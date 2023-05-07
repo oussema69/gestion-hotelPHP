@@ -7,6 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
     <link rel="stylesheet" type="text/css" href="../accueil.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>crud dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="cssdashboard\css/bootstrap.min.css">
+    <!----css3---->
+    <link rel="stylesheet" href="../cssdashboard\css/custom.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!--google fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+    <!--google material icon-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -93,30 +114,31 @@
 
 
     <div class="center">
-    <div class="row">
-        <?php while ($row = $results->fetch()) { ?>
-            <div class="column col-3">
-                <div class="card">
-                    <h3>Chambre numero:<?php echo $row['id']; ?></h3>
+        <div class="row">
+            <?php while ($row = $results->fetch()) { ?>
+                <div class="column col-3">
+                    <div class="card">
+                        <h3>Chambre numero:<?php echo $row['id']; ?></h3>
 
-                    <img src="../images/<?php echo $row['image']; ?>" class="pic1" />
+                        <img src="../images/<?php echo $row['image']; ?>" class="pic1" />
 
-                    <p>Prix :<?php echo $row['prix']; ?> DT</p>
-                    <p>categorie : <?php echo $row['categorie']; ?></p>
-                    <p>nombre de personne: <?php echo $row['nbr_personne']; ?> </p>
-                    <?php if ($row['etat'] == 1) { ?>
-                        <p>Disponible<span style="color:green;">&#x25cf;</span></p>
-                        <a href="reservation.php?id=<?php echo $row['id']; ?>">Reserver</button>
-                    <?php } else { ?>
-                        <p>Réservé<span style="color:red;">&#x25cf;</span></p>
-                    <?php } ?>
+                        <p>Prix :<?php echo $row['prix']; ?> DT</p>
+                        <p>categorie : <?php echo $row['categorie']; ?></p>
+                        <p>nombre de personne: <?php echo $row['nbr_personne']; ?> </p>
+                        <?php if ($row['etat'] == 1) { ?>
+                            <p>Disponible<span style="color:green;">&#x25cf;</span></p>
+                            <a data-toggle="modal" data-id="<?php echo $row['id'] ?>" data-target="#myModal">Reserver</a>
+                        <?php } else { ?>
+                            <p>Réservé<span style="color:red;">&#x25cf;</span></p>
+                        <?php } ?>
 
+                    </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } ?>
 
+        </div>
     </div>
-</div>
+
 
 
 
@@ -164,6 +186,49 @@
 
     </footer>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <form method="post" action="reservation.php">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Chambre N:<span id="id"></span> </h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id-input" name="id" />
+                    <div class="form-group">
+                      <label>Date Debut</label>
+                      <input type="date" class="form-control" required name="date_deb">
+                    </div>
+                    <div class="form-group">
+                      <label>Date Fin</label>
+                      <input type="date" class="form-control" required name="date_fin">
+                    </div>
+
+
+                </div>
+              
+
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" name="reserver">
+                </div>
+            </div>
+            </form>
+        </div>
 </body>
+
+<script>
+    $('#myModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var id = button.data('id'); // Extract info from data-* attributes
+        var modal = $(this);
+        modal.find('.modal-title #id').text(id);
+        modal.find('.modal-body #id-input').val(id);
+    });
+</script>
 
 </html>

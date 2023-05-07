@@ -40,7 +40,7 @@
 		<a href="login\logout.php">Logout</a>
 
         <li><a href="../gestionHotel-php/home.php">Home</a></li>
-        <li><a href="../gestionHotel-php/ClientSide/chambre.php">Create New Reservation</a></li>
+        <li><a href="ClientSide/chambre.php">Create New Reservation</a></li>
         <li><a href="../HTML project/contact.html">Contact</a></li>
         <li><a href="../HTML project/about.html" id="id1">About</a></li>
         <li><img src="test2.jpg" alt="" id="id1"></li>

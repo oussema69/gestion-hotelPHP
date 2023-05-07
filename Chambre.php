@@ -67,7 +67,13 @@ class Chambre {
         $this->image = $image;
     }
     //
- 
+    public function __selectionbyid($conn,$id){
+        $sql = $conn->prepare("SELECT * FROM chambre where id=$id");
+        $sql->execute();
+        return $sql;
+
+    }
+
     public function getAllChambres($conn, $filter = []) {
         $sql = "SELECT * FROM chambre";
         $params = [];
